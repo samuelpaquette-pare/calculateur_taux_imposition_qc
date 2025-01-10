@@ -2,8 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="calculateur_taux_imposition_qc",
-    version="0.1.0",
-    description="Un package Python pour calculer les taux d'imposition pour particuliers au Québec.",
+    description="Calculateur de taux d'imposition pour particuliers pour le Québec",
     author="Samuel Paquette-Paré",
     author_email="paquetteparesamuel@gmail.com",
     packages=find_packages(),
