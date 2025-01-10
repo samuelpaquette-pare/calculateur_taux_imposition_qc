@@ -10,6 +10,14 @@ Pour utiliser le calculateur en ligne de commande, exécutez le script `calculat
 ```bash
 python main.py <salaire_annuel> [annee]
 ```
+Vous pouvez aussi créer un Wheel ou un `tar.gz`:
+```bash
+python setup.py sdist bdist_wheel
+```
+puis installer le wheel:
+```bash
+pip install dist/calculateur_taux_imposition_qc-0.1.0-py3-none-any.whl
+```
 
 ### Arguments
 

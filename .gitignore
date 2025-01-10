@@ -1,1 +1,5 @@
 __pycache__/
+.pytest_cache/
+dist/
+build/
+calculateur_taux_imposition_qc.egg-info/
