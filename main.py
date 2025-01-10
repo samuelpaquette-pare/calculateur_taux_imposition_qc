@@ -3,6 +3,7 @@
 import csv
 import json
 import sys
+import os
 from datetime import datetime
 
 
@@ -65,7 +66,7 @@ def calculate_marginal_rate(income: int, brackets: list) -> float:
     """
     return next((rate for lower, upper, rate in brackets if income > lower and income <= upper), 0)
 
-def main():
+def main() -> None:
     try:
         if len(sys.argv) != 3 or sys.argv[1] == "--help":
             print("Usage: python main.py <salaire_annuel> [annee]")
@@ -80,11 +81,13 @@ def main():
         if 2023 > annee > datetime.now().year or annee > 2025:
             raise ValueError("L'année doit être comprise entre 2023 et 2025.")
 
-        federal_brackets = load_tax_brackets("tax_brackets.csv", annee, "federal")
+        script_dir = os.path.dirname(__file__)
+
+        federal_brackets = load_tax_brackets(f"{script_dir}/tax_brackets.csv", annee, "federal")
         federal_tax = calculate_taxes(salaire_annuel, federal_brackets)
         federal_marginal_rate = calculate_marginal_rate(salaire_annuel, federal_brackets)
 
-        provincial_brackets = load_tax_brackets("tax_brackets.csv", annee, "provincial")
+        provincial_brackets = load_tax_brackets(f"{script_dir}/tax_brackets.csv", annee, "provincial")
         provincial_tax = calculate_taxes(salaire_annuel, provincial_brackets)
         provincial_marginal_rate = calculate_marginal_rate(
             salaire_annuel, provincial_brackets

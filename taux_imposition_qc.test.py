@@ -78,9 +78,9 @@ class TestTauxImposition(unittest.TestCase):
         output = json.loads(mock_print.call_args[0][0])
 
         expected_output = {
-            "taux_effectif_quebecois": f"{9250 / 75000:.4f}",
-            "taux_effectif_canadien": f"{12500 / 75000:.4f}",
-            "taux_effectif_total": f"{(9250 + 12500) / 75000:.4f}",
+            "taux_effectif_quebecois": 0.1233,  # 9250 / 75000
+            "taux_effectif_canadien": 0.1667,  # 12500 / 75000
+            "taux_effectif_total": 0.29,  # (9250 + 12500) / 75000
             "taux_marginal_quebecois": 0.15,
             "taux_marginal_canadien": 0.20,
             "taux_marginal_total": 0.35,
