@@ -1,4 +1,4 @@
-""" Ce script permet de calculer les impôts fédéraux et provinciaux pour un salaire annuel donné. """
+""" Ce script permet de calculer les impôts fédéraux et provinciaux pour un salaire annuel donné."""
 
 import csv
 import os
@@ -63,7 +63,7 @@ def calculate_marginal_rate(income: int, brackets: list) -> float:
         float: The marginal tax rate for the given income.
     """
     return next(
-        (rate for lower, upper, rate in brackets if income > lower and income <= upper),
+        (rate for lower, upper, rate in brackets if lower < income <= upper),
         0,
     )
 

@@ -3,3 +3,4 @@ __pycache__/
 dist/
 build/
 calculateur_taux_imposition_qc.egg-info/
+.coverage
