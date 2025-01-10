@@ -77,7 +77,7 @@ def main():
         if salaire_annuel <= 0:
             raise ValueError("Le salaire doit être un nombre positif.")
 
-        if annee < 2023 or annee > datetime.now().year:
+        if 2023 > annee > datetime.now().year or annee > 2025:
             raise ValueError("L'année doit être comprise entre 2023 et 2025.")
 
         federal_brackets = load_tax_brackets("tax_brackets.csv", annee, "federal")
@@ -95,9 +95,9 @@ def main():
         total_marginal_rate = federal_marginal_rate + provincial_marginal_rate
 
         result = {
-            "taux_effectif_quebecois": f"{provincial_tax / salaire_annuel:.4f}",
-            "taux_effectif_canadien": f"{federal_tax / salaire_annuel:.4f}",
-            "taux_effectif_total": f"{total_effective_rate:.4f}",
+            "taux_effectif_quebecois": float(f"{provincial_tax / salaire_annuel:.4f}"),
+            "taux_effectif_canadien": float(f"{federal_tax / salaire_annuel:.4f}"),
+            "taux_effectif_total": float(f"{total_effective_rate:.4f}"),
             "taux_marginal_quebecois": provincial_marginal_rate,
             "taux_marginal_canadien": federal_marginal_rate,
             "taux_marginal_total": total_marginal_rate,
