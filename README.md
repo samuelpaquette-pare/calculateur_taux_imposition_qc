@@ -10,19 +10,15 @@ Pour utiliser le calculateur en ligne de commande, exécutez le script `calculat
 ```bash
 python main.py <salaire_annuel> [annee]
 ```
-Vous pouvez aussi créer un Wheel ou un `tar.gz`:
+Vous pouvez aussi installer comme une librairie pour l'utiliser plus facilement dans votre code:
 ```bash
-python setup.py sdist bdist_wheel
-```
-puis installer le wheel:
-```bash
-pip install dist/calculateur_taux_imposition_qc-0.1.0-py3-none-any.whl
+python -m pip install .
 ```
 
 ### Arguments
 
 - `salaire_annuel` : Le montant du salaire annuel brute pour lequel vous souhaitez calculer l'impôt.
-- `[annee]` : L'année pour laquelle vous souhaitez effectuer le calcul (2023, 2024, ou 2025). L'argument est optionnel et sera l'année actuelle par défaut.
+- `annee` : L'année pour laquelle vous souhaitez effectuer le calcul (2023, 2024, ou 2025). L'argument est optionnel et sera l'année actuelle par défaut.
 
 ### Exemple
 
