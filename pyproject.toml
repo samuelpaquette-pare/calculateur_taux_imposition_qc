@@ -19,7 +19,7 @@ maintainers = [
 ]
 name = "calculateur_taux_imposition_qc"
 readme = "README.md"
-requires-python = ">= 3.6"
+requires-python = ">= 3.8"
 
 [project.urls]
 Repository = "https://github.com/samuelpaquette-pare/calculateur_taux_imposition_qc.git"
