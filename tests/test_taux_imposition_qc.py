@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import patch, mock_open
 from calculateur_taux_imposition_qc import (
-    get_taxes_rates
+    get_tax_rate,
+    get_capital_gain_tax_rate
 )
 from calculateur_taux_imposition_qc.calculateur import (
     load_tax_brackets,
@@ -64,8 +65,8 @@ class TestTauxImposition(unittest.TestCase):
         self.assertEqual(federal_marginal_rate, 0.20)
         self.assertEqual(provincial_marginal_rate, 0.15)
 
-    def test_get_taxes_rates_output(self):
-        output = get_taxes_rates(self.income, 2024)
+    def test_get_tax_rate_output(self):
+        output = get_tax_rate(self.income, 2024)
 
         expected_output = {
             "taux_effectif_quebecois": 0.1555,
@@ -78,8 +79,8 @@ class TestTauxImposition(unittest.TestCase):
 
         self.assertEqual(output, expected_output)
 
-    def test_get_taxes_rates_output_with_default_year(self):
-        output = get_taxes_rates(self.income)
+    def test_get_tax_rate_output_with_default_year(self):
+        output = get_tax_rate(self.income)
 
         expected_output = {
             "taux_effectif_quebecois": 0.1545,
@@ -95,17 +96,17 @@ class TestTauxImposition(unittest.TestCase):
 
     def test_negative_income(self):
         with self.assertRaises(ValueError):
-            get_taxes_rates(-1)
+            get_tax_rate(-1)
 
     def test_invalid_year(self):
         with self.assertRaises(ValueError):
-            get_taxes_rates(1000, 2021)
+            get_tax_rate(1000, 2021)
 
         with self.assertRaises(ValueError):
-            get_taxes_rates(1000, 2055)
+            get_tax_rate(1000, 2055)
 
     def test_zero_income(self):
-        output = get_taxes_rates(0)
+        output = get_tax_rate(0)
 
         expected_output = {
             "taux_effectif_quebecois": 0,
@@ -114,6 +115,31 @@ class TestTauxImposition(unittest.TestCase):
             "taux_marginal_quebecois": 0,
             "taux_marginal_canadien": 0,
             "taux_marginal_total": 0,
+        }
+
+        self.assertEqual(output, expected_output)
+
+    def test_get_capital_gain_tax_rate(self):
+        capital_gain = 300000
+        output = get_capital_gain_tax_rate(capital_gain)
+
+        expected_output = {
+            "taux_effectif": 0.5278,
+            "taux_marginal": 0.667,
+        }
+
+        self.assertEqual(output, expected_output)
+
+    def test_negative_capital_gain(self):
+        with self.assertRaises(ValueError):
+            get_capital_gain_tax_rate(-1)
+
+    def test_zero_capital_gain(self):
+        output = get_capital_gain_tax_rate(0)
+
+        expected_output = {
+            "taux_effectif": 0,
+            "taux_marginal": 0,
         }
 
         self.assertEqual(output, expected_output)

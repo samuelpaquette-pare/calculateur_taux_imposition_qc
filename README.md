@@ -23,15 +23,19 @@ python -m pip install .
 ### Exemple
 
 ```bash
-python calculateur.py 50000 2023
+python main.py 50000 2023
 ```
 ```bash
-python calculateur.py 40000
+python main.py 40000
+```
+```bash
+python main.py --capital 300000
 ```
 ```python
-from calculateur_taux_imposition_qc import get_taxes_rates
+from calculateur_taux_imposition_qc import get_tax_rate, get_capital_gain_tax_rate
 
 print(get_taxes_rates(110000))
+print(get_capital_gain_tax_rate(110000))
 ```
 
 Exemple de retour:

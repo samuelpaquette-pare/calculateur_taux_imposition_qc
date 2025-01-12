@@ -68,7 +68,7 @@ def calculate_marginal_rate(income: int, brackets: list) -> float:
     )
 
 
-def get_taxes_rates(salaire_annuel: float, annee: int = datetime.now().year) -> dict:
+def get_tax_rate(salaire_annuel: float, annee: int = datetime.now().year) -> dict:
     """Calculates the federal and provincial taxes rates for a given yearly income.
 
     Args:
@@ -123,4 +123,35 @@ def get_taxes_rates(salaire_annuel: float, annee: int = datetime.now().year) -> 
         "taux_marginal_quebecois": provincial_marginal_rate,
         "taux_marginal_canadien": federal_marginal_rate,
         "taux_marginal_total": total_marginal_rate,
+    }
+
+
+def get_capital_gain_tax_rate(gain_capital: float) -> dict:
+    """Calculates the capital gain tax rate for a given capital gain.
+
+    Args:
+        gain_capital (float): The capital gain to calculate the tax rate for.
+
+    Returns:
+        dict: A dictionary containing the following:
+            - taux_effectif: The effective tax rate for the capital gain.
+            - taux_marginal: The marginal tax rate for the capital gain.
+    """
+    if gain_capital < 0:
+        raise ValueError("Le gain en capital doit être un nombre positif.")
+
+    brackets = [
+        (float(0), float(250000), float(0.5)),
+        (float(250000), float("inf"), float(0.667)),
+    ]
+
+    return {
+        "taux_effectif": (
+            0
+            if gain_capital == 0
+            else float(f"{calculate_taxes(gain_capital, brackets) / gain_capital:.4f}")
+        ),
+        "taux_marginal": float(
+            f"{calculate_marginal_rate(gain_capital, brackets):.4f}"
+        ),
     }
