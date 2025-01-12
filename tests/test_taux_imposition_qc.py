@@ -104,5 +104,19 @@ class TestTauxImposition(unittest.TestCase):
         with self.assertRaises(ValueError):
             get_taxes_rates(1000, 2055)
 
+    def test_zero_income(self):
+        output = get_taxes_rates(0)
+
+        expected_output = {
+            "taux_effectif_quebecois": 0,
+            "taux_effectif_canadien": 0,
+            "taux_effectif_total": 0,
+            "taux_marginal_quebecois": 0,
+            "taux_marginal_canadien": 0,
+            "taux_marginal_total": 0,
+        }
+
+        self.assertEqual(output, expected_output)
+
 if __name__ == "__main__":
     unittest.main()

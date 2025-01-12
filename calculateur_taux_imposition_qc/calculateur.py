@@ -107,12 +107,18 @@ def get_taxes_rates(salaire_annuel: float, annee: int = datetime.now().year) -> 
     )
 
     total_tax = federal_tax + provincial_tax
-    total_effective_rate = total_tax / salaire_annuel
+    total_effective_rate = 0 if salaire_annuel == 0 else (total_tax / salaire_annuel)
     total_marginal_rate = federal_marginal_rate + provincial_marginal_rate
 
     return {
-        "taux_effectif_quebecois": float(f"{provincial_tax / salaire_annuel:.4f}"),
-        "taux_effectif_canadien": float(f"{federal_tax / salaire_annuel:.4f}"),
+        "taux_effectif_quebecois": (
+            0
+            if salaire_annuel == 0
+            else float(f"{provincial_tax / salaire_annuel:.4f}")
+        ),
+        "taux_effectif_canadien": (
+            0 if salaire_annuel == 0 else float(f"{federal_tax / salaire_annuel:.4f}")
+        ),
         "taux_effectif_total": float(f"{total_effective_rate:.4f}"),
         "taux_marginal_quebecois": provincial_marginal_rate,
         "taux_marginal_canadien": federal_marginal_rate,
