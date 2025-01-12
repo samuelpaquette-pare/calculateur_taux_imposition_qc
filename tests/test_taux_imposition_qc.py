@@ -1,10 +1,12 @@
 import unittest
 from unittest.mock import patch, mock_open
+from calculateur_taux_imposition_qc import (
+    get_taxes_rates
+)
 from calculateur_taux_imposition_qc.calculateur import (
     load_tax_brackets,
     calculate_taxes,
-    calculate_marginal_rate,
-    get_taxes_rates,
+    calculate_marginal_rate
 )
 
 
@@ -90,6 +92,17 @@ class TestTauxImposition(unittest.TestCase):
 
         self.assertEqual(output, expected_output)
 
+
+    def test_negative_income(self):
+        with self.assertRaises(ValueError):
+            get_taxes_rates(-1)
+
+    def test_invalid_year(self):
+        with self.assertRaises(ValueError):
+            get_taxes_rates(1000, 2021)
+
+        with self.assertRaises(ValueError):
+            get_taxes_rates(1000, 2055)
 
 if __name__ == "__main__":
     unittest.main()

@@ -28,6 +28,12 @@ python calculateur.py 50000 2023
 ```bash
 python calculateur.py 40000
 ```
+```python
+from calculateur_taux_imposition_qc import get_taxes_rates
+
+print(get_taxes_rates(110000))
+```
+
 Exemple de retour:
 ```JSON
 {

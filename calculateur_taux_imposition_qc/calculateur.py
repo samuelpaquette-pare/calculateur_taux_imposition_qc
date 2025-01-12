@@ -84,10 +84,10 @@ def get_taxes_rates(salaire_annuel: float, annee: int = datetime.now().year) -> 
             - taux_marginal_canadien: The marginal tax rate for Canada.
             - taux_marginal_total: The total marginal
     """
-    if salaire_annuel <= 0:
+    if salaire_annuel < 0:
         raise ValueError("Le salaire doit être un nombre positif.")
 
-    if 2023 > annee > datetime.now().year or annee > 2025:
+    if 2023 > annee or annee > 2025:
         raise ValueError("L'année doit être comprise entre 2023 et 2025.")
 
     script_dir = os.path.dirname(__file__)
